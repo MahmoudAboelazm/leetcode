@@ -1,3 +1,36 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// 41. First Missing Positive /////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+var firstMissingPositive = function (nums) {
+  const map = new Map();
+  let smallest = nums[0] > 0 ? nums[0] : 1;
+  let biggest = nums[0] > 0 ? nums[0] : 1;
+
+  const findTheSmallestAndBiggest = (nums) => {
+    for (const n of nums) {
+      map[n] = n;
+      if (n < smallest && n > 0) smallest = n;
+      if (n > biggest) biggest = n;
+    }
+  };
+  findTheSmallestAndBiggest(nums);
+
+  const findTheMissing = (start, end) => {
+    if (start > 1) return 1;
+    for (let i = start; i <= end; i++) {
+      if (map[i]) continue;
+      return i;
+    }
+    return end + 1;
+  };
+  return findTheMissing(smallest, biggest);
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// Length Of Longest Substring ////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 var lengthOfLongestSubstring = function (s) {
   let max = 0,
     tmpLen = 0,
